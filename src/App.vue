@@ -22,9 +22,6 @@
     data() {
       return {
         amp: null,
-        status: true,
-        url1: 'http://localhost/satellite/{z}/{x}/{y}.jpg',
-        url2: 'http://localhost/roadmap/{z}/{x}/{y}.png'
       }
     },
     mounted() {
@@ -32,23 +29,27 @@
     },
     methods: {
       leafletMap() {
+
         this.amp = this.L.map('map', {
           center: [23.165003, 113.401411], // 地图中心
           //center: [111, 23.48915], // 地图中心
-          zoom: 18, //缩放比列
+          zoom: 3, //缩放比列
           minzoom: 1,
           maxzoom: 18,
-
+          //crs: L.CRS.EPSG4326,
+          //crs: L.CRS.EPSG3857,
+          //crs: crs,
           zoomControl: false,
           doubleClickZoom: false, // 禁用双击放大
           attributionControl: false // 移除右下角leaflet标识
         })
 
-        //var url1 = 'http://localhost/satellite/{z}/{x}/{y}.jpg';
-       // var url2 = 'http://localhost/roadmap/{z}/{x}/{y}.png';
+        var urlIp = 'http://120.76.142.32';
+        var url1 = urlIp + '/satellite/{z}/{x}/{y}.jpg';
+        var url2 = urlIp + '/roadmap/{z}/{x}/{y}.png';
 
-        //this.name = this.L.tileLayer(this.url2).addTo(this.amp) //火星坐标地图 高德
-        this.name = this.L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.amp)// wgs84 gps 地图
+        this.name = this.L.tileLayer(url2).addTo(this.amp) //火星坐标地图 高德
+        //this.name = this.L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.amp)// wgs84 gps 地图
 
         /*var myimage = this.L.icon({
           iconUrl:'assets/1.jpg', //图片url
@@ -57,8 +58,8 @@
           popupAnchor:[23.162334, 113.397859],   //设置警示框位置 ，以iconAnchor的值进行定位。相当于absolute 例子中的警示框定位到有、右上角。
         })
         var marker = this.L.marker([23.162334, 113.397859],{icon: myimage,title:'Hello Guangzhou', draggable: true}).addTo(this.amp);*/
-        //var marker = this.L.marker([23.165003, 113.401411]).addTo(this.amp); //火星坐标
-        var marker = this.L.marker([23.167483065871703, 113.39588355237883]).addTo(this.amp); //wgs 84 坐标
+        var marker = this.L.marker([23.165003, 113.401411]).addTo(this.amp); //火星坐标
+        //var marker = this.L.marker([23.167483065871703, 113.39588355237883]).addTo(this.amp); //wgs 84 坐标
         setTimeout(function() {
           this.amp.invalidateSize(true)
         }, 10)
